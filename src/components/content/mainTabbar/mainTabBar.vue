@@ -1,20 +1,20 @@
 .<template>
     <tab-bar>
     <tabbar-item path="/home">
-      <img slot="item-icon" src="~assets/img/tabbar/home.svg" alt="0"/>
-      <div slot="item-text">首页</div>
+      <template #item-icon><img src="~assets/img/tabbar/home.svg" alt="0"/></template>
+      <template #item-text><div>首页</div></template>
     </tabbar-item>
     <tabbar-item path="/shopcart">
-      <img slot="item-icon" src="~assets/img/tabbar/shopcart.svg" alt="0"/>
-      <div slot="item-text">购物车</div>
+      <template #item-icon><img src="~assets/img/tabbar/shopcart.svg" alt="0"/></template>
+      <template #item-text><div>购物车</div></template>
     </tabbar-item>
     <tabbar-item path="/category">
-      <img slot="item-icon" src="~assets/img/tabbar/category.svg" alt="0"/>
-      <div slot="item-text">分类</div>
+      <template #item-icon><img src="~assets/img/tabbar/category.svg" alt="0"/></template>
+      <template #item-text><div>分类</div></template>
     </tabbar-item>
     <tabbar-item path="/profile">
-      <img slot="item-icon" src="~assets/img/tabbar/profile.svg" alt="0"/>
-      <div slot="item-text">我的</div>
+      <template #item-icon><img src="~assets/img/tabbar/profile.svg" alt="0"/></template>
+      <template #item-text><div>我的</div></template>
     </tabbar-item>
   </tab-bar>
 </template>
