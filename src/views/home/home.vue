@@ -18,12 +18,14 @@ export default {
   },
   data(){
     return {
-      result: null,
+      banners:[],
+      recommends:[],
     }
   },
   created(){
     getHomeMultidata().then(res =>{
-      this.result = res;
+      this.banners = res.data.banner.list;
+      this.recommends=res.data.recommend.list;
     })
   }
 }
