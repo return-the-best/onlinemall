@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="wrapper">
     <router-view/>
-    <main-tab-bar/>
+    <main-tab-bar class="main-tab-bar"/>
   </div>
 </template>
 
@@ -16,6 +16,12 @@
   }
 </script>
 
-<style>
+<style scoped>
   @import "assets/css/base.css";
+  .main-tab-bar{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
 </style>
