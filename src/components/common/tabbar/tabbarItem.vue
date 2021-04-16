@@ -24,7 +24,7 @@ methods:{
 }
 </script>
 
-<style>
+<style scoped>
 .tabbaritem {
     flex:1;
     height: 49px;
