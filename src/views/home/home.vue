@@ -5,18 +5,14 @@
         <div>购物街</div>
       </template>
     </nav-bar>
+    <scroll class="content" ref="scroll">
     <home-swiper :banners="banners"/>
     <recommend-view :recommends="recommends"/>
     <feature-view/>
-    <tab-control :titles="['流行','新款','精选']"/>
-    <goods-list :goods="goods['pop'].list"/>
-    <ul>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-    </ul>
+    <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick="tabClick"/>
+    <goods-list :goods="showGoods"/>
+    </scroll>
+    <back-top @click.native="backClick"></back-top>
   </div>
 </template>
 
@@ -26,9 +22,11 @@
   import RecommendView from './childComps/RecommendView';//首页推荐
   import FeatureView from './childComps/FeatureView.vue';//时尚
   import GoodsList from 'components/content/goods/GoodsList.vue';//商品列表
+  import TabControl from 'components/content/tabControl/tabControl.vue';//分类栏
   //公共组件
   import NavBar from 'components/common/navbar/NavBar';//导航栏
-  import TabControl from '../../components/content/tabControl/tabControl.vue';//分类栏
+  import Scroll from 'components/common/scroll/Scroll.vue';//better-scroll
+  import BackTop from 'components/content/backTop/BackTop.vue';//回到顶部
   //方法
   import {
     getHomeMultidata,
@@ -42,7 +40,9 @@ export default {
     FeatureView,
     NavBar,
     TabControl,
-    GoodsList
+    GoodsList,
+    Scroll,
+    BackTop,
   },
   data(){
     return {
@@ -52,7 +52,8 @@ export default {
         'pop':{page:0,list:[]},
         'new':{page:0,list:[]},
         'sell':{page:0,list:[]},
-      }
+      },
+      currentType:'pop'
     }
   },
   created(){
@@ -64,6 +65,14 @@ export default {
     this.getHomeGoods('sell')
   },
   methods:{
+    //事件监听方法
+    tabClick(index){
+      this.currentType=Object.keys(this.goods)[index]
+    },
+    backClick(){
+      this.$refs.scroll.scroll.scrollTo(0,0,300)
+    },
+    //网络请求方法
     getHomeMultidata(){
       getHomeMultidata().then(res =>{
       this.banners = res.data.banner.list;
@@ -77,18 +86,32 @@ export default {
       this.goods[type].list.page+=1
     })
     },
+  },
+  computed:{
+    showGoods(){
+      return this.goods[this.currentType].list
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .home-nav{
   background-color: var(--color-tint);
   color: aliceblue;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9;
 }
 #home{
     /*padding-top: 44px;*/
     height: 100vh;
     position: relative;
   }
+.content{
+  height: 500px;
+  overflow: hidden;
+}
 </style>
