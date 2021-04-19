@@ -125,7 +125,8 @@ export default {
     position: relative;
   }
 .content{
-  height: 500px;
+  margin-top: 44px;
+  height: 800px;
   overflow: hidden;
 }
 </style>
