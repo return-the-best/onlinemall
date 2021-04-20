@@ -31,6 +31,6 @@ import tabBar from '@/components/common/tabbar/tabBar'
 import tabbarItem from '@/components/common/tabbar/tabbarItem'
 </script>
 
-<style>
+<style scoped>
 
 </style>

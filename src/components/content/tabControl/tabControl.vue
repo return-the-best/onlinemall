@@ -49,6 +49,9 @@ export default {
 .tab-control-item span{
   padding: 5px;
 }
+.active {
+    color: var(--color-high-text);
+  }
 .active span {
   color: var(--color-high-text);
   border-bottom: 3px solid var(--color-tint);

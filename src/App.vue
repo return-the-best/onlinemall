@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="wrapper">
+    <keep-alive>
     <router-view/>
+    </keep-alive>
     <main-tab-bar class="main-tab-bar"/>
   </div>
 </template>
@@ -18,10 +20,4 @@
 
 <style scoped>
   @import "assets/css/base.css";
-  .main-tab-bar{
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-  }
 </style>
