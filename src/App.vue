@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="wrapper">
+  <div id="app" class="wrapper" exclude="detail">
     <keep-alive>
     <router-view/>
     </keep-alive>

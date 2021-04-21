@@ -1,6 +1,6 @@
 <template>
   <div class="detail-swiper">
-    <swiper>
+    <swiper class="detswiper">
       <swiper-item v-for="item in topImages" :key="item">
         <img :src="item">
       </swiper-item>
@@ -26,6 +26,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .detswiper{
+    height: 300px;
+    overflow: hidden;
+  }
 </style>
