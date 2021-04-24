@@ -1,7 +1,7 @@
 .<template>
   <div class="tabbaritem" :class="{active:isActive}" @click="itemClick">
-      <slot name="item-icon"></slot>
-      <div><slot name="item-text"></slot></div>
+      <div class="icon"><slot name="item-icon"></slot></div>
+      <div class="text"><slot name="item-text"></slot></div>
   </div>
 </template>
 
@@ -27,14 +27,15 @@ methods:{
 <style scoped>
 .tabbaritem {
     flex:1;
-    height: 49px;
-    text-align: center;
 }
-img {
-    height: 25px;
-    width: 25px;
-    margin: 0px;
+.icon img {
+    height: 23px;
+    width: 23px;
+    margin: 3px;
     vertical-align: middle;
+}
+.text{
+    font-size: 14px;
 }
 .active{
     color: red;

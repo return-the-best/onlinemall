@@ -12,16 +12,22 @@ name:"tabBar"
 
 <style>
 .tabbar {
-    display: flex;
-    background-color: #ebe8e8;
+    /* 本身的样式 */
+    background-color: #f6f6f6;
+    height: 49px;
+    border-top: 1px solid #eee;
+    box-shadow: 0px -1px 1px rgba(150,150,150,.08);
+
+    /* 定位相关 */
     position: fixed;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    box-shadow: 0px -3px 1px rgba(235, 232, 232, 0.637);
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 1;
+
+    /* 利用flex进行布局 */
+    display: flex;
+    text-align: center;
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar>
+    <nav-bar class="detail-nav">
       <template #center>
         <div class="title">
           <div v-for="(item,index) in titles"
@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style scoped>
+.detail-nav{
+  background-color: #fff;
+  font-weight: normal;
+}
 .title{
   display: flex;
   justify-content: space-around;
