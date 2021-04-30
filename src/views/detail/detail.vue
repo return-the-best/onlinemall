@@ -1,14 +1,14 @@
 <template>
   <div class="detail">
-    <detail-nav-bar></detail-nav-bar>
-    <scroll class="content">
+    <detail-nav-bar @titleClick="titleClick" ref="nav"></detail-nav-bar>
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
     <detail-swiper :top-images="topImages"></detail-swiper>
     <detail-base-info :goods="goods"></detail-base-info>
     <detail-shop-info :shop="shopInfo"></detail-shop-info>
     <detail-image-info :detailInfo="detailInfo"></detail-image-info>
     <detail-param-info ref="param" :param-info="paramInfo"></detail-param-info>
-    <detail-comment-info :comment-info="commentInfo"></detail-comment-info>
-    <goods-list :goods="recommends"/>
+    <detail-comment-info ref="comment" :comment-info="commentInfo"></detail-comment-info>
+    <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
   </div>
 </template>
@@ -51,10 +51,29 @@ data(){
     detailInfo:{},
     paramInfo:{},
     recommends:[],
-    commentInfo:{}
+    commentInfo:{},
+    themeTopYs:[],
+    currentIndex:0
   }
 },
 
+methods:{
+  titleClick(index){
+    this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],300)
+  },
+  contentScroll(position){
+    const positionY=-position.y
+    for(let i in this.themeTopYs){
+      if(this.currentIndex!=i){
+        if(parseInt(i)==this.themeTopYs.length-1&&positionY>this.themeTopYs[this.themeTopYs.length-1]||positionY>this.themeTopYs[parseInt(i)]&&positionY<this.themeTopYs[parseInt(i)+1])
+        {
+        this.currentIndex=parseInt(i)
+        this.$refs.nav.currentIndex=this.currentIndex
+      }
+      }
+    }
+  }
+},
 created(){
   this.iid=this.$route.query.iid
   getDetail(this.iid).then(res=>{
@@ -71,6 +90,13 @@ created(){
   getRecommend().then(res=>{
     this.recommends=res.data.list
   })
+},
+updated(){
+    this.themeTopYs=[]
+    this.themeTopYs.push(0)
+    this.themeTopYs.push(this.$refs.param.$el.offsetTop)
+    this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
+    this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
 }
 }
 </script>
@@ -83,7 +109,8 @@ created(){
     z-index: 10;
   }
   .content{
-    background-color: #fff;
-    height: calc(100% - 44px);
+    position: absolute;
+    top: 44px;
+    bottom: 60px;
   }
 </style>
