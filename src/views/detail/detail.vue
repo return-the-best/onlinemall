@@ -10,6 +10,8 @@
     <detail-comment-info ref="comment" :comment-info="commentInfo"></detail-comment-info>
     <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
+    <detail-bottom-bar @addToCart="addToCart"/>
+    <back-top @click.native="backClick" v-show="isShowBacktop"></back-top>
   </div>
 </template>
 
@@ -22,13 +24,19 @@ import DetailShopInfo from './childComps/detailShopInfo.vue'
 import DetailImageInfo from './childComps/DetailImageInfo.vue'
 import DetailParamInfo from './childComps/DetailParamInfo.vue'
 import DetailCommentInfo from './childComps/DetailCommentInfo.vue'
+import DetailBottomBar from './childComps/DetailBottomBar.vue'
 //公用组件
-import Scroll from '../../components/common/scroll/Scroll.vue'
-import GoodsList from '../../components/content/goods/GoodsList.vue'
+import Scroll from 'components/common/scroll/Scroll.vue'
+import GoodsList from 'components/content/goods/GoodsList.vue'
+import BackTop from 'components/content/backTop/BackTop.vue'
 //网络请求方法
 import {getDetail,Goods,GoodsParam,getRecommend} from 'network/detail'
+//混入
+import{backTopMixin} from 'common/mixin.js'
 export default {
 name:"detail",
+
+mixins:[backTopMixin],
 
 components: {
 DetailNavBar,
@@ -39,7 +47,9 @@ DetailShopInfo,
 DetailImageInfo,
 DetailParamInfo,
 DetailCommentInfo,
-GoodsList
+GoodsList,
+DetailBottomBar,
+BackTop
   },
 
 data(){
@@ -60,7 +70,7 @@ data(){
 methods:{
   titleClick(index){
     this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],300)
-  },
+  },//点击标题
   contentScroll(position){
     const positionY=-position.y
     for(let i in this.themeTopYs){
@@ -72,8 +82,19 @@ methods:{
       }
       }
     }
+    this.isShowBacktop=(-position.y>1000)
+  },//监听滚动
+  addToCart(){
+    const product={}
+    product.image=this.topImages[0]
+    product.title=this.goods.title
+    product.desc=this.goods.desc
+    product.price=this.goods.newPrice
+    product.iid=this.iid
+    this.$store.dispatch('addToCart',product)
   }
 },
+
 created(){
   this.iid=this.$route.query.iid
   getDetail(this.iid).then(res=>{
@@ -91,6 +112,7 @@ created(){
     this.recommends=res.data.list
   })
 },
+
 updated(){
     this.themeTopYs=[]
     this.themeTopYs.push(0)
