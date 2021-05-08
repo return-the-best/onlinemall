@@ -89,7 +89,7 @@ methods:{
     product.image=this.topImages[0]
     product.title=this.goods.title
     product.desc=this.goods.desc
-    product.price=this.goods.newPrice
+    product.price=this.goods.nowPrice
     product.iid=this.iid
     this.$store.dispatch('addToCart',product)
   }

@@ -12,7 +12,11 @@ const store = new Vuex.Store({
           payload.count++
         },
         addCartList(state,payload){
+          payload.checked=true
           state.cartList.push(payload)
+        },
+        checkedClick(state,payload){
+          payload.checked=!payload.checked
         }
       },
       actions:{
@@ -29,6 +33,9 @@ const store = new Vuex.Store({
       getters:{
         cartLength(state){
           return state.cartList.length
+        },
+        cartList(state){
+          return state.cartList
         }
       }
     },//添加购物车模块

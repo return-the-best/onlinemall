@@ -46,7 +46,10 @@ export default {
     },
     finishPullUp(){
       this.scroll.finishPullUp()
-    }
+    },
+    refresh() {
+        this.scroll && this.scroll.refresh && this.scroll.refresh()
+    },
   }
 }
 </script>
